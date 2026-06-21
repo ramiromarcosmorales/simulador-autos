@@ -1,0 +1,211 @@
+/* ===== Hero ===== */
+.hero-container {
+    background-color: var(--azul-uces);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 70px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.hero-car-img {
+    max-height: 350px;
+}
+
+.hero-text h1 {
+    font-weight: 300;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+}
+
+.hero-text h2 {
+    font-weight: 800;
+    font-size: 4.5rem;
+    letter-spacing: 12px;
+}
+
+/* ===== Secciones ===== */
+.section-anchor {
+    padding-top: 100px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    color: var(--azul-uces);
+    font-weight: 700;
+    border-bottom: 3px solid var(--bordo-uces);
+    display: inline-block;
+    margin-bottom: 3rem;
+}
+
+/* ===== Cards de Modelos ===== */
+.card-modelo {
+    transition: transform 0.3s;
+    border: none;
+    border-radius: 12px;
+}
+
+.card-modelo:hover {
+    transform: translateY(-8px);
+}
+
+.card-modelo img {
+    max-height: 140px;
+    object-fit: contain;
+}
+
+.card-seleccionada {
+    border: 2px solid var(--bordo-uces) !important;
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn-seleccionado {
+    background-color: var(--bordo-uces) !important;
+    color: white !important;
+    border-color: var(--bordo-uces) !important;
+}
+
+/* ===== Botones ===== */
+.btn-bordo {
+    background-color: var(--bordo-uces);
+    color: white;
+    border: none;
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.btn-bordo:hover {
+    background-color: #8a4338;
+    color: white;
+}
+
+/* ===== Formulario - Tabs ===== */
+.nav-tabs-custom {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    gap: 4px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.nav-tab-item {
+    flex: 1;
+}
+
+.nav-tab-btn {
+    width: 100%;
+    padding: 12px 8px;
+    border: none;
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #6c757d;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.nav-tab-btn:hover {
+    color: var(--azul-uces);
+}
+
+.nav-tab-btn.active {
+    color: var(--azul-uces);
+    border-bottom-color: var(--bordo-uces);
+}
+
+/* Tab panels */
+.tab-panel {
+    display: none;
+    min-height: 180px;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+/* ===== Sidebar Informe ===== */
+.sidebar-informe {
+    background-color: white;
+    border: 2px solid var(--azul-uces);
+    border-radius: 12px;
+    position: sticky;
+    top: 90px;
+}
+
+.informe-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.informe-row span:last-child {
+    color: var(--azul-uces);
+}
+
+.cuota-destacada {
+    background-color: var(--azul-uces);
+    color: white;
+}
+
+.cuota-valor {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--bordo-uces);
+}
+
+.cuota-destacada .cuota-valor.text-muted {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* ===== Equivalencia dólar ===== */
+.dolar-equivalencia {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: #2e7d32;
+    font-style: italic;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 991px) {
+    .sidebar-informe {
+        position: static;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-text h2 {
+        font-size: 3rem;
+        letter-spacing: 6px;
+    }
+
+    .hero-car-img {
+        max-height: 220px;
+    }
+
+    .nav-tab-btn {
+        font-size: 0.75rem;
+        padding: 10px 4px;
+    }
+}

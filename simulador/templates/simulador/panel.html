@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Panel de Solicitudes{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'simulador/css/style.css' %}">
+<style>
+    .panel-container {
+        padding-top: 100px;
+        padding-bottom: 60px;
+    }
+
+    .panel-title {
+        color: var(--azul-uces);
+        font-weight: 700;
+        border-bottom: 3px solid var(--bordo-uces);
+        display: inline-block;
+        margin-bottom: 2rem;
+    }
+
+    .table-panel {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+
+    .table-panel thead {
+        background-color: var(--azul-uces);
+        color: white;
+    }
+
+    .table-panel thead th {
+        padding: 14px 12px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .table-panel tbody tr {
+        border-bottom: 1px solid #e9ecef;
+        transition: background-color 0.2s;
+    }
+
+    .table-panel tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .table-panel tbody td {
+        padding: 12px;
+        color: #333;
+    }
+
+    .badge-cuota {
+        background-color: var(--bordo-uces);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+
+    .panel-empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #6c757d;
+    }
+
+    .panel-count {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 767px) {
+        .table-responsive {
+            font-size: 0.8rem;
+        }
+
+        .table-panel thead th,
+        .table-panel tbody td {
+            padding: 8px 6px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container panel-container">
+    <h3 class="panel-title">Panel de Solicitudes</h3>
+
+    <p class="panel-count">Total: {{ solicitudes.count }} solicitud{{ solicitudes.count|pluralize:"es" }}</p>
+
+    {% if solicitudes %}
+    <div class="table-responsive bg-white rounded shadow-sm">
+        <table class="table-panel">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Modelo</th>
+                    <th>Plan</th>
+                    <th>Cuota Mensual</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in solicitudes %}
+                <tr>
+                    <td>{{ s.fecha_solicitud|date:"d/m/Y H:i" }}</td>
+                    <td>{{ s.nombre }}</td>
+                    <td>{{ s.dni }}</td>
+                    <td>{{ s.telefono }}</td>
+                    <td>{{ s.modelo }}</td>
+                    <td>{{ s.plan }}</td>
+                    <td><span class="badge-cuota">$ {{ s.cuota_mensual|floatformat:2 }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="panel-empty">
+        <p>No hay solicitudes registradas todavía.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

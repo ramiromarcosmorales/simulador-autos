@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Simulador de Plan de Ahorro - UCES{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'simulador/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<div class="hero-container">
+    <div class="hero-content text-center">
+        <img src="{% static 'simulador/img/hero-car.png' %}" alt="Vehículo" class="img-fluid mb-4 hero-car-img">
+        <div class="hero-text">
+            <h1>Tu camino empieza</h1>
+            <h2>AHORA</h2>
+        </div>
+        <a href="#modelos" class="btn btn-bordo mt-4">COMIENZA AHORA</a>
+    </div>
+</div>
+
+<main class="container">
+    <!-- Modelos -->
+    <section id="modelos" class="section-anchor">
+        <h3 class="section-title">Nuestros Modelos</h3>
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="card card-modelo p-3 shadow-sm h-100">
+                    <img src="{% static 'simulador/img/auron.webp' %}" class="card-img-top mb-2" alt="Auron City">
+                    <h5 class="fw-bold">Auron City</h5>
+                    <p class="text-muted small">Desde $8.500.000</p>
+                    <button class="btn btn-outline-dark btn-sm btn-seleccionar-auto" data-auto="Auron City" data-img="{% static 'simulador/img/auron.webp' %}">Seleccionar</button>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-modelo p-3 shadow-sm h-100">
+                    <img src="{% static 'simulador/img/velkar.webp' %}" class="card-img-top mb-2" alt="Velkar Nova">
+                    <h5 class="fw-bold">Velkar Nova</h5>
+                    <p class="text-muted small">Desde $8.500.000</p>
+                    <button class="btn btn-outline-dark btn-sm btn-seleccionar-auto" data-auto="Velkar Nova" data-img="{% static 'simulador/img/velkar.webp' %}">Seleccionar</button>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-modelo p-3 shadow-sm h-100">
+                    <img src="{% static 'simulador/img/oryex.png' %}" class="card-img-top mb-2" alt="Oryex Prime">
+                    <h5 class="fw-bold">Oryex Prime</h5>
+                    <p class="text-muted small">Desde $8.500.000</p>
+                    <button class="btn btn-outline-dark btn-sm btn-seleccionar-auto" data-auto="Oryex Prime" data-img="{% static 'simulador/img/oryex.png' %}">Seleccionar</button>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card card-modelo p-3 shadow-sm h-100">
+                    <img src="{% static 'simulador/img/zenthor.png' %}" class="card-img-top mb-2" alt="Zenthor">
+                    <h5 class="fw-bold">Zenthor</h5>
+                    <p class="text-muted small">Desde $8.500.000</p>
+                    <button class="btn btn-outline-dark btn-sm btn-seleccionar-auto" data-auto="Zenthor" data-img="{% static 'simulador/img/zenthor.png' %}">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requisitos -->
+    <section id="requisitos" class="section-anchor">
+        <h3 class="section-title">Requisitos del Plan</h3>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="bg-white p-4 rounded shadow-sm h-100">
+                    <h5 class="fw-bold mb-3">Requisitos del Titular</h5>
+                    <ul class="list-unstyled">
+                        <li>&#10004; Mínimo 18 años</li>
+                        <li>&#10004; Máximo 75 años al finalizar el plan</li>
+                        <li>&#10004; Presentar un garante</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-white p-4 rounded shadow-sm h-100">
+                    <h5 class="fw-bold mb-3">Requisitos del Garante</h5>
+                    <ul class="list-unstyled">
+                        <li>&#10004; Mínimo 18 años</li>
+                        <li>&#10004; Antigüedad laboral mínima de 1 año</li>
+                        <li>&#10004; Ingreso neto &gt; 4 veces la cuota</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulador -->
+    <section id="simular" class="section-anchor mb-5">
+        <h3 class="section-title">Define tu financiamiento</h3>
+        <div class="row g-4 align-items-start">
+            <!-- Formulario con pestañas -->
+            <div class="col-lg-7">
+                <div class="form-card bg-white p-4 p-md-5 rounded shadow-sm border">
+                    <!-- Mensaje de éxito -->
+                    <div id="mensajeExito" class="alert alert-success d-none" role="alert">
+                        ¡Simulación realizada con éxito!
+                    </div>
+
+                    <form action="{% url 'index' %}" method="POST" id="formSimulador" novalidate data-img-base="{% static 'simulador/img/' %}">
+                        {% csrf_token %}
+
+                        <!-- Tabs -->
+                        <ul class="nav nav-tabs-custom mb-4" role="tablist">
+                            <li class="nav-tab-item">
+                                <button type="button" class="nav-tab-btn active" data-tab="tab-personales">Datos Personales</button>
+                            </li>
+                            <li class="nav-tab-item">
+                                <button type="button" class="nav-tab-btn" data-tab="tab-garante">Datos del Garante</button>
+                            </li>
+                            <li class="nav-tab-item">
+                                <button type="button" class="nav-tab-btn" data-tab="tab-plan">Datos del Plan</button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab: Datos Personales -->
+                        <div class="tab-panel active" id="tab-personales">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="id_nombre" class="form-label fw-bold">Nombre</label>
+                                    {{ form.nombre }}
+                                    <div class="error-msg" id="error-nombre"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="id_email" class="form-label fw-bold">Email</label>
+                                    {{ form.email }}
+                                    <div class="error-msg" id="error-email"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_dni" class="form-label fw-bold">DNI</label>
+                                    {{ form.dni }}
+                                    <div class="error-msg" id="error-dni"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_telefono" class="form-label fw-bold">Teléfono</label>
+                                    {{ form.telefono }}
+                                    <div class="error-msg" id="error-telefono"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="id_fecha_nacimiento" class="form-label fw-bold">Fecha de Nacimiento</label>
+                                    {{ form.fecha_nacimiento }}
+                                    <div class="error-msg" id="error-fecha_nacimiento"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Datos del Garante -->
+                        <div class="tab-panel" id="tab-garante">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <label for="id_nombre_garante" class="form-label fw-bold">Nombre del Garante</label>
+                                    {{ form.nombre_garante }}
+                                    <div class="error-msg" id="error-nombre_garante"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="id_fecha_nacimiento_garante" class="form-label fw-bold">Fecha de Nacimiento del Garante</label>
+                                    {{ form.fecha_nacimiento_garante }}
+                                    <div class="error-msg" id="error-fecha_nacimiento_garante"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="id_ingresos_garante" class="form-label fw-bold">Ingresos Mensuales</label>
+                                    {{ form.ingresos_garante }}
+                                    <div class="error-msg" id="error-ingresos_garante"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Datos del Plan -->
+                        <div class="tab-panel" id="tab-plan">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="id_modelo" class="form-label fw-bold">Modelo</label>
+                                    {{ form.modelo }}
+                                    <div class="error-msg" id="error-modelo"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="id_plan" class="form-label fw-bold">Plan</label>
+                                    {{ form.plan }}
+                                    <div class="error-msg" id="error-plan"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-bordo w-100 py-3 mt-4 fw-bold">SIMULAR PLAN</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="sidebar-informe p-4">
+                    <h5 class="fw-bold border-bottom pb-2 mb-4" style="color: var(--azul-uces);">Informe de Financiamiento</h5>
+
+                    <div class="informe-auto-img text-center mb-3" id="informeImgContainer" style="{% if not resultado %}display:none;{% endif %}">
+                        {% if resultado %}
+                        <img src="{% static 'simulador/img/' %}{{ resultado.imagen }}" alt="{{ resultado.modelo }}" class="img-fluid" id="informeImg" style="max-height:120px;">
+                        {% else %}
+                        <img src="" alt="" class="img-fluid" id="informeImg" style="max-height:120px;">
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <div class="informe-row"><span>Vehículo escogido:</span><span class="fw-bold" id="inf-modelo">{% if resultado %}{{ resultado.modelo }}{% else %}-{% endif %}</span></div>
+                        <div class="informe-row"><span>Precio de lista:</span><span class="fw-bold" id="inf-precio">{% if resultado %}$ {{ resultado.precio }}{% else %}$ -{% endif %}</span></div>
+                        <div class="informe-row"><span>Tipo de Financiamiento:</span><span class="fw-bold" id="inf-plan">{% if resultado %}{{ resultado.plan }}{% else %}-{% endif %}</span></div>
+                        <div class="informe-row"><span>Cantidad de Cuotas:</span><span class="fw-bold" id="inf-cuotas">{% if resultado %}{{ resultado.cuotas }}{% else %}-{% endif %}</span></div>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <div class="informe-row"><span>Importe Adjudicación:</span><span class="fw-bold" id="inf-adjudicacion">{% if resultado %}$ {{ resultado.adjudicacion }}{% else %}$ -{% endif %}</span></div>
+                        <div class="informe-row"><span>Importe Retiro (Patentamiento):</span><span class="fw-bold" id="inf-retiro">{% if resultado %}$ {{ resultado.retiro }}{% else %}$ -{% endif %}</span></div>
+                        <div class="informe-row"><span>Tasa de Interés:</span><span class="fw-bold" id="inf-tasa">{% if resultado %}{{ resultado.tasa }}% anual{% else %}-{% endif %}</span></div>
+                    </div>
+                    <div class="cuota-destacada p-3 rounded text-center">
+                        <span class="d-block small fw-bold mb-1">Valor de Cuota Mensual</span>
+                        <span class="cuota-valor" id="inf-cuota">{% if resultado %}$ {{ resultado.cuota_mensual }}{% else %}$ 0,00{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'simulador/js/main.js' %}"></script>
+{% endblock %}
