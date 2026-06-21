@@ -193,7 +193,7 @@ def index(request):
                     settings.DEFAULT_FROM_EMAIL,
                     [email_cliente],
                     html_message=cuerpo_html,
-                    fail_silently=False,
+                    fail_silently=True,
                 )
             except Exception as e:
                 logger.error(f"Error al enviar correo a {form.cleaned_data['email']}: {e}")
