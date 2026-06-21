@@ -14,8 +14,7 @@ class SSLEmailBackend(EmailBackend):
         import socket
 
         connection_params = {'local_hostname': socket.getfqdn()}
-        if self.timeout is not None:
-            connection_params['timeout'] = self.timeout
+        connection_params['timeout'] = self.timeout if self.timeout is not None else 5
 
         # contexto SSL sin verificación de certificado
         ssl_context = ssl.create_default_context()
