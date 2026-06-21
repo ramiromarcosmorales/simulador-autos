@@ -39,7 +39,5 @@ class SSLEmailBackend(EmailBackend):
                 self.connection.login(self.username, self.password)
 
             return True
-        except (smtplib.SMTPException, OSError):
-            if not self.fail_silently:
-                raise
+        except Exception:
             return False
